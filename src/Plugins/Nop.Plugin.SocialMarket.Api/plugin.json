@@ -1,0 +1,11 @@
+{
+  "Group": "Web API",
+  "FriendlyName": "Social Market Web API",
+  "SystemName": "SocialMarket.Api",
+  "Version": "1.0",
+  "SupportedVersions": [ "4.60" ],
+  "Author": "Danil Lugovskikh",
+  "DisplayOrder": 0,
+  "FileName": "Nop.Plugin.SocialMarket.Api.dll",
+  "Description": "This plugin offers endpoints to access a marketplace data via API"
+}
