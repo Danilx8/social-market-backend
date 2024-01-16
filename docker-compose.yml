@@ -8,6 +8,7 @@ services:
         depends_on:
             - nopcommerce_database
     nopcommerce_database:
+        platform: linux/amd64
         image: "mcr.microsoft.com/mssql/server:2019-latest"
         container_name: nopcommerce_mssql_server
         environment:
