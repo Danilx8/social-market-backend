@@ -445,7 +445,7 @@ namespace Nop.Web.Controllers
         [CheckAccessClosedStore(ignore: true)]
         //available even when navigation is not allowed
         [CheckAccessPublicStore(ignore: true)]
-        public virtual async Task<IActionResult> Login(LoginModel model, string returnUrl, bool captchaValid)
+        public virtual async Task<IActionResult> Login([FromBody] LoginModel model, [FromQuery] string returnUrl, [FromHeader] bool captchaValid)
         {
             //validate CAPTCHA
             if (_captchaSettings.Enabled && _captchaSettings.ShowOnLoginPage && !captchaValid)
@@ -503,9 +503,8 @@ namespace Nop.Web.Controllers
                 }
             }
 
-            //If we got this far, something failed, redisplay form
-            model = await _customerModelFactory.PrepareLoginModelAsync(model.CheckoutAsGuest);
-            return View(model);
+            //If we got this far, something failed
+            return BadRequest();
         }
 
         /// <summary>
@@ -546,6 +545,8 @@ namespace Nop.Web.Controllers
         [CheckAccessClosedStore(ignore: true)]
         //available even when navigation is not allowed
         [CheckAccessPublicStore(ignore: true)]
+
+        [HttpPost]
         public virtual async Task<IActionResult> Logout()
         {
             var customer = await _workContext.GetCurrentCustomerAsync();
@@ -756,7 +757,6 @@ namespace Nop.Web.Controllers
 
         //available even when navigation is not allowed
         [CheckAccessPublicStore(ignore: true)]
-        [HttpGet]
         public virtual async Task<IActionResult> Register(string returnUrl)
         {
             //check whether registration is allowed

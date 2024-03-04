@@ -158,8 +158,8 @@ namespace Nop.Web.Controllers
 
         #region Product details page
 
-        [HttpGet]
-        public virtual async Task<IActionResult> ProductDetails(int productId, int updatecartitemid = 0)
+        [HttpGet]x
+        public virtual async Task<IActionResult> ProductDetails(int productId, [FromQuery] int updatecartitemid = 0)
         {
             var product = await _productService.GetProductByIdAsync(productId);
             if (product == null || product.Deleted)
@@ -239,7 +239,6 @@ namespace Nop.Web.Controllers
             return Ok(model);
         }
 
-        [HttpPost]
         public virtual async Task<IActionResult> EstimateShipping([FromQuery] ProductDetailsModel.ProductEstimateShippingModel model, IFormCollection form)
         {
             if (model == null)
@@ -306,7 +305,6 @@ namespace Nop.Web.Controllers
             return Json(result);
         }
 
-        [HttpGet]
         //ignore SEO friendly URLs checks
         [CheckLanguageSeoCode(ignore: true)]
         public virtual async Task<IActionResult> GetProductCombinations(int productId)
@@ -323,7 +321,6 @@ namespace Nop.Web.Controllers
 
         #region Recently viewed products
 
-        [HttpGet]
         public virtual async Task<IActionResult> RecentlyViewedProducts()
         {
             if (!_catalogSettings.RecentlyViewedProductsEnabled)
@@ -341,7 +338,6 @@ namespace Nop.Web.Controllers
 
         #region Product reviews
 
-        [HttpGet]
         public virtual async Task<IActionResult> ProductReviews(int productId)
         {
             var product = await _productService.GetProductByIdAsync(productId);
@@ -366,7 +362,6 @@ namespace Nop.Web.Controllers
             return Ok(model);
         }
 
-        [HttpPost, ActionName("ProductReviews")]
         [FormValueRequired("add-review")]
         [ValidateCaptcha]
         public virtual async Task<IActionResult> ProductReviewsAdd(int productId, ProductReviewsModel model, bool captchaValid)
@@ -457,7 +452,6 @@ namespace Nop.Web.Controllers
             return View(model);
         }
 
-        [HttpPost]
         public virtual async Task<IActionResult> SetProductReviewHelpfulness(int productReviewId, bool washelpful)
         {
             var productReview = await _productService.GetProductReviewByIdAsync(productReviewId);

@@ -153,6 +153,7 @@ namespace Nop.Web.Controllers
         }
 
         [HttpPost]
+        [Route("Catalog/Root")]
         public virtual async Task<IActionResult> GetCatalogRoot()
         {
             var model = await _catalogModelFactory.PrepareRootCategoriesAsync();
@@ -172,7 +173,6 @@ namespace Nop.Web.Controllers
 
         #region Manufacturers
 
-        [HttpGet]
         public virtual async Task<IActionResult> Manufacturer(int manufacturerId, CatalogProductsCommand command)
         {
             var manufacturer = await _manufacturerService.GetManufacturerByIdAsync(manufacturerId);
@@ -205,7 +205,6 @@ namespace Nop.Web.Controllers
             return Ok(model);
         }
 
-        [HttpGet]
         //ignore SEO friendly URLs checks
         [CheckLanguageSeoCode(ignore: true)]
         public virtual async Task<IActionResult> GetManufacturerProducts(int manufacturerId, CatalogProductsCommand command)
@@ -220,7 +219,6 @@ namespace Nop.Web.Controllers
             return Ok(model);
         }
 
-        [HttpGet]
         public virtual async Task<IActionResult> ManufacturerAll()
         {
             var model = await _catalogModelFactory.PrepareManufacturerAllModelsAsync();
@@ -232,7 +230,6 @@ namespace Nop.Web.Controllers
 
         #region Vendors
 
-        [HttpGet]
         public virtual async Task<IActionResult> Vendor(int vendorId, CatalogProductsCommand command)
         {
             var vendor = await _vendorService.GetVendorByIdAsync(vendorId);
@@ -258,7 +255,6 @@ namespace Nop.Web.Controllers
             return Ok(model);
         }
 
-        [HttpGet]
         //ignore SEO friendly URLs checks
         [CheckLanguageSeoCode(ignore: true)]
         public virtual async Task<IActionResult> GetVendorProducts(int vendorId, CatalogProductsCommand command)
@@ -273,7 +269,6 @@ namespace Nop.Web.Controllers
             return Ok(model);
         }
 
-        [HttpGet]
         public virtual async Task<IActionResult> VendorAll()
         {
             //we don't allow viewing of vendors if "vendors" block is hidden
@@ -288,7 +283,6 @@ namespace Nop.Web.Controllers
 
         #region Product tags
 
-        [HttpGet]
         public virtual async Task<IActionResult> ProductsByTag(int productTagId, CatalogProductsCommand command)
         {
             var productTag = await _productTagService.GetProductTagByIdAsync(productTagId);
@@ -300,7 +294,6 @@ namespace Nop.Web.Controllers
             return Ok(model);
         }
 
-        [HttpGet]
         //ignore SEO friendly URLs checks
         [CheckLanguageSeoCode(ignore: true)]
         public virtual async Task<IActionResult> GetTagProducts(int tagId, CatalogProductsCommand command)
@@ -314,7 +307,6 @@ namespace Nop.Web.Controllers
             return Ok(model);
         }
 
-        [HttpGet]
         public virtual async Task<IActionResult> ProductTagsAll()
         {
             var model = await _catalogModelFactory.PreparePopularProductTagsModelAsync();
@@ -326,7 +318,6 @@ namespace Nop.Web.Controllers
 
         #region New (recently added) products page
 
-        [HttpGet]
         public virtual async Task<IActionResult> NewProducts(CatalogProductsCommand command)
         {
             if (!_catalogSettings.NewProductsEnabled)
@@ -340,7 +331,6 @@ namespace Nop.Web.Controllers
             return Ok(model);
         }
 
-        [HttpGet]
         //ignore SEO friendly URLs checks
         [CheckLanguageSeoCode(ignore: true)]
         public virtual async Task<IActionResult> GetNewProducts(CatalogProductsCommand command)
